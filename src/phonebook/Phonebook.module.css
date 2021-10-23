@@ -1,0 +1,16 @@
+.btn {
+  color: #000;
+  padding: 3px 7px;
+  align-items: center;
+}
+
+.btn:hover {
+  background: cadetblue;
+  color: #fff;
+}
+
+.inputName,
+.inputNumber {
+  display: block;
+  margin-bottom: 15px;
+}
