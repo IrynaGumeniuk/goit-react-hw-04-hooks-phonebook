@@ -51,7 +51,7 @@ export default function Phonebook ({handleSubmit}) {
           required
         ></input>
 
-        <button className={styles.btn} type="submit" onSubmit={onSubmit}>Add contact</button>
+        <button type="submit" onSubmit={onSubmit} className={styles.btn}>Add contact</button>
       </form>
     );
   }

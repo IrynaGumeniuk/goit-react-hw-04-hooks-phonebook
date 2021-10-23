@@ -16,7 +16,7 @@ export default function App() {
   const [filter, setFilter] = useState("");
 
 
-  const handleSubmit = ({ name, number }) => {
+const handleSubmit = ({ name, number }) => {
     const contact = {
       id: uuidv4(),
       name,
@@ -24,11 +24,7 @@ export default function App() {
     };
     contacts.some((e) => e.name === name)
       ? alert(`${name} already exists`)
-      : setContacts((prev) => {
-        return {
-          contacts: [...prev.contacts, contact],
-        };
-      });
+      : setContacts([contact, ...contacts]);
   };
 
   const handleChangeFilter = (e) => {
