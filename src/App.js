@@ -2,6 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Phonebook from "./phonebook/Phonebook";
 import ContactList from "./contactList/ContactList";
+import FilterContacts from "./filterContacts/FilterContacts";
 
 export default function App() {
 
@@ -13,46 +14,34 @@ export default function App() {
   ]);
 
   const [filter, setFilter] = useState("");
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = ({ name, number }) => {
     const contact = {
       id: uuidv4(),
-      name: name,
-      number: number,
+      name,
+      number,
     };
-    contacts.find(
-      ({ name }) => name === contact.name && contact.name
-    )
-      ? alert(`${contact.name} already exists`)
-      : this.setState((prev) => {
+    contacts.some((e) => e.name === name)
+      ? alert(`${name} already exists`)
+      : setContacts((prev) => {
         return {
           contacts: [...prev.contacts, contact],
         };
       });
-    this.setState({ name: "", number: "" });
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setName({ [name]: value });
+  const handleChangeFilter = (e) => {
+    setFilter(e.target.value);  
   };
 
   const filterByName = () => {
-    return filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+    return contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()),
+);
+};
 
   const deleteContact = (id) => {
-    setContacts((prev) => {
-      return {
-        contacts: prev.contacts.filter((contact) => contact.id !== id),
-      };
-    });
+    setContacts(contacts.filter((i) => i.id !== id));
   };
 
   const filterContact = filterByName();
@@ -60,15 +49,11 @@ export default function App() {
     <>
       <Phonebook
         onSubmit={handleSubmit}
-        onChange={handleChange}
-        name={name}
-        number={number}
       />
-
+      <FilterContacts value={filter} onFilter={handleChangeFilter} />
       <ContactList
         contacts={filterContact}
         filter={filter}
-        onChange={handleChange}
         deleteContact={deleteContact}
       />
     </>
