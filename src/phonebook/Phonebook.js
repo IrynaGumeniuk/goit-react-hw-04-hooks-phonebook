@@ -2,14 +2,14 @@ import {useState} from "react";
 import PropTypes from 'prop-types';
 import styles from "./Phonebook.module.css";
 
-export default function Phonebook ({handleSubmit}) {
+export default function Phonebook ({onSubmit}) {
 
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    handleSubmit({name,number});
+    onSubmit({name,number});
     formReset();
   };
 
@@ -28,7 +28,7 @@ export default function Phonebook ({handleSubmit}) {
 
 
     return (
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <h2>Phonebook</h2>
 
         <input
@@ -51,11 +51,11 @@ export default function Phonebook ({handleSubmit}) {
           required
         ></input>
 
-        <button type="submit" onSubmit={onSubmit} className={styles.btn}>Add contact</button>
+        <button type="submit" onSubmit={handleSubmit} className={styles.btn}>Add contact</button>
       </form>
     );
   }
 
   Phonebook.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
         };
